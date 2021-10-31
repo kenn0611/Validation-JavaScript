@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <style>
+        .btns {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: blue;
+            height: 5rem;
+        }
+        .note {
+            margin-top: 1rem;
+            display: block;
+        }
+        .err,
+        .err-2 {
+            color: red;
+        }
+    </style>
+    <title>View</title>
+</head>
+<body>
+<div class="btns">
+    <button class="home-btn">Home</button>
+    <button class="about-btn">About</button>
+    <button class="view-btn">View</button>
+</div>
+<h1>View Notes</h1>
+<input type="text" id="firstField" name="firstField" />
+<input type="text" id="secondField" name="secondField" />
+<button type="button" class="note">Submit Note</button>
+<table></table>
+<span class="err"></span>
+<span class="err-2"></span>
+<script>
+    document.querySelector(".home-btn").onclick = function () {
+        location.href = "home.html";
+    };
+    document.querySelector(".about-btn").onclick = function () {
+        location.href = "about.html";
+    };
+    document.querySelector(".view-btn").onclick = function () {
+        location.href = "view.html";
+    };
+    const submitBtn = document.querySelector(".note");
+    const err = document.querySelector(".err");
+    const err2 = document.querySelector(".err-2");
+    let index = 0;
+    submitBtn.addEventListener("click", function () {
+        err.innerHTML = "";
+        err2.innerHTML = "";
+        const firstFieldText = document.querySelector("#firstField").value;
+        const secondFieldText = document.querySelector("#secondField").value;
+        let regex = /^[0-9]+$/; //Regular exp to check if input is number
+        if (
+            secondFieldText.match(regex) &&
+            firstFieldText != null &&
+            firstFieldText !== ""
+        ) {
+            let table = document.querySelector("table");
+            let row = table.insertRow(index);
+            let cell1 = row.insertCell(0);
+            let cell2 = row.insertCell(1);
+            cell1.innerHTML = secondFieldText;
+            cell2.innerHTML = firstFieldText;
+            index++;
+        }
+        if (!secondFieldText.match(regex)) {
+            err.innerHTML = "Enter a valid number in second field!";
+        }
+        if (firstFieldText == null || firstFieldText === "") {
+            err2.innerHTML = "Note should be atleast one character long!";
+        }
+    });
+</script>
+</body>
+</html>
